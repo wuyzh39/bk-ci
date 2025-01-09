@@ -27,30 +27,7 @@
 
 package com.tencent.devops.environment.pojo.enums
 
-enum class NodeType(val typeName: String) {
-    CMDB("CMDB"),
-    DEVCLOUD("DevCloud虚拟机"),
-    THIRDPARTY("第三方构建机"),
-    OTHER("其他"),
-    UNKNOWN("未知");
-
-    companion object {
-        fun coreTypesName() = listOf(CMDB.name, DEVCLOUD.name, THIRDPARTY.name, OTHER.name, UNKNOWN.name)
-
-        fun getTypeByUsage(nodeUsage: NodeUsage): List<String> {
-            return when (nodeUsage) {
-                NodeUsage.DEPLOY -> listOf(CMDB.name)
-                NodeUsage.BUILD -> listOf(DEVCLOUD.name, THIRDPARTY.name)
-                else -> coreTypesName()
-            }
-        }
-
-        fun getTypeName(nodeType: String): String {
-            return values().find { it.name == nodeType }?.typeName ?: UNKNOWN.typeName
-        }
-
-        fun parseByTypeName(typeName: String): NodeType {
-            return values().find { it.typeName == typeName } ?: UNKNOWN
-        }
-    }
+enum class NodeUsage {
+    DEPLOY,
+    BUILD
 }

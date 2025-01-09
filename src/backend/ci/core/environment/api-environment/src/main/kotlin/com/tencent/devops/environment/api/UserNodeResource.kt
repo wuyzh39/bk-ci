@@ -34,6 +34,7 @@ import com.tencent.devops.common.api.pojo.Result
 import com.tencent.devops.environment.pojo.DisplayName
 import com.tencent.devops.environment.pojo.NodeWithPermission
 import com.tencent.devops.environment.pojo.enums.NodeType
+import com.tencent.devops.environment.pojo.enums.NodeUsage
 import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -124,7 +125,10 @@ interface UserNodeResource {
         keywords: String?,
         @Parameter(description = "节点类型", required = false)
         @QueryParam("nodeType")
-        nodeType: NodeType?
+        nodeType: NodeType?,
+        @Parameter(description = "节点用途", required = false)
+        @QueryParam("nodeUsage")
+        nodeUsage: NodeUsage?,
     ): Result<Page<NodeWithPermission>>
 
     @Operation(summary = "获取用户有权限使用的服务器列表")

@@ -41,6 +41,7 @@ import com.tencent.devops.environment.permission.EnvNodeAuthorizationService
 import com.tencent.devops.environment.pojo.DisplayName
 import com.tencent.devops.environment.pojo.NodeWithPermission
 import com.tencent.devops.environment.pojo.enums.NodeType
+import com.tencent.devops.environment.pojo.enums.NodeUsage
 import com.tencent.devops.environment.service.NodeService
 import com.tencent.devops.environment.utils.NodeUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -82,7 +83,8 @@ class UserNodeResourceImpl @Autowired constructor(
         createdUser: String?,
         lastModifiedUser: String?,
         keywords: String?,
-        nodeType: NodeType?
+        nodeType: NodeType?,
+        nodeUsage: NodeUsage?
     ): Result<Page<NodeWithPermission>> {
         return Result(
             nodeService.listNew(
@@ -95,7 +97,8 @@ class UserNodeResourceImpl @Autowired constructor(
                 createdUser = createdUser,
                 lastModifiedUser = lastModifiedUser,
                 keywords = keywords,
-                nodeType = nodeType
+                nodeType = nodeType,
+                nodeUsage = nodeUsage
             )
         )
     }

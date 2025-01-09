@@ -31,6 +31,7 @@ import com.tencent.devops.common.api.util.HashUtil
 import com.tencent.devops.environment.constant.T_NODE_NODE_ID
 import com.tencent.devops.environment.pojo.enums.NodeStatus
 import com.tencent.devops.environment.pojo.enums.NodeType
+import com.tencent.devops.environment.pojo.enums.NodeUsage
 import com.tencent.devops.model.environment.tables.TNode
 import com.tencent.devops.model.environment.tables.records.TNodeRecord
 import java.time.LocalDateTime
@@ -71,7 +72,8 @@ class NodeDao {
         createdUser: String?,
         lastModifiedUser: String?,
         keywords: String?,
-        nodeType: NodeType?
+        nodeType: NodeType?,
+        nodeUsage: NodeUsage?
     ): List<TNodeRecord> {
         return with(TNode.T_NODE) {
             val query = dslContext.selectFrom(this)
@@ -96,6 +98,9 @@ class NodeDao {
             } else {
                 /*除非特别指定，暂不显示内部NodeType类型*/
                 query.and(NODE_TYPE.`in`(NodeType.coreTypesName()))
+            }
+            if (nodeUsage != null) {
+                query.and(NODE_TYPE.`in`(NodeType.getTypeByUsage(nodeUsage)))
             }
             query.orderBy(LAST_MODIFY_TIME.desc())
                 .limit(limit).offset(offset)

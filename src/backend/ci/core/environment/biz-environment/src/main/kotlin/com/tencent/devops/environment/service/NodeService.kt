@@ -58,6 +58,7 @@ import com.tencent.devops.environment.pojo.NodeBaseInfo
 import com.tencent.devops.environment.pojo.NodeWithPermission
 import com.tencent.devops.environment.pojo.enums.NodeStatus
 import com.tencent.devops.environment.pojo.enums.NodeType
+import com.tencent.devops.environment.pojo.enums.NodeUsage
 import com.tencent.devops.environment.pojo.enums.OsType
 import com.tencent.devops.environment.service.node.NodeActionFactory
 import com.tencent.devops.environment.service.slave.SlaveGatewayService
@@ -175,7 +176,8 @@ class NodeService @Autowired constructor(
         createdUser: String?,
         lastModifiedUser: String?,
         keywords: String?,
-        nodeType: NodeType?
+        nodeType: NodeType?,
+        nodeUsage: NodeUsage?
     ): Page<NodeWithPermission> {
         val nodeRecordList =
             if (-1 != page) {
@@ -190,7 +192,8 @@ class NodeService @Autowired constructor(
                     createdUser = createdUser,
                     lastModifiedUser = lastModifiedUser,
                     keywords = keywords,
-                    nodeType = nodeType
+                    nodeType = nodeType,
+                    nodeUsage = nodeUsage
                 )
             } else {
                 nodeDao.listNodes(dslContext = dslContext, projectId = projectId, nodeType = nodeType)
